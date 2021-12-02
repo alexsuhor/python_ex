@@ -1,0 +1,7 @@
+line = input("Enter a line")
+
+def reverse(str):
+    i = len(str)
+    while i > 0:
+        print(str[i])
+        i = i + 1
