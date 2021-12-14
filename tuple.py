@@ -43,7 +43,7 @@ def max_len(an):
     return f
 
 
-def anagrams():
+def anagram_sets():
     file = open('words.txt')
     words = {}
     for w in file:
