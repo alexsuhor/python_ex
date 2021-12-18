@@ -3,7 +3,7 @@ import math
 
 bob = turtle.Turtle()
 
-edge = 40
+edge_ = 40
 
 def square(t, l):
     for i in range(4):
@@ -18,7 +18,8 @@ def polygon(t, l, n):
 
 
 def circle(t, r):
-    polygon(t, 2 * math.pi * r / edge, edge)
+    print(r)
+    polygon(t, 2 * math.pi * r / edge_, edge_)
 
 
 def polyline(t, n, length, angle):
@@ -73,7 +74,7 @@ def shape(t, l, n):
         t.lt(360 / n)
 
 
+if __name__ == '__main__':
+    shape(bob, 200, 7)
 
-shape(bob, 200, 7)
-
-turtle.mainloop()
+    turtle.mainloop()
