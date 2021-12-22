@@ -2,6 +2,7 @@ import math
 import copy
 import turtle
 from pprint import pprint
+from datetime import date, time, datetime
 
 def distance_between_points(a, b):
     print(a.x, a.y, "/", b.x, b.y)
@@ -160,4 +161,28 @@ def time_to_int(time):
     second = minute * 60 + time.second
     return second
 
-print(time_to_int(t1))
+
+def int_to_time(int):
+    minute, second = divmod(int, 60)
+    hour, minute = divmod(minute, 60)
+    time = Time()
+    time.second = second
+    time.minute = minute
+    time.hour = hour
+    return time
+
+
+def incr_ext(time, second):
+    return int_to_time(time_to_int(time) + second)
+
+
+def mul_time(time, number):
+    return int_to_time(time_to_int(time) * number)
+
+
+def birthday():
+    d = datetime.date(2021, 1, 2)
+    print(d)
+
+
+birthday()
