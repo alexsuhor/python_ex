@@ -1,5 +1,5 @@
 import math
-import copy
+from copy import copy
 import turtle
 from pprint import pprint
 from datetime import date, time, datetime
@@ -27,6 +27,22 @@ class Point:
     """
     x, y is a number
     """
+    def __init__(self, x=0, y=0) -> None:
+        self.x = x
+        self.y = y
+    
+    
+    def __str__(self) -> str:
+        return '(%d, %d)' % (self.x, self.y)
+
+    
+    def __add__(self, other):
+        
+        if isinstance(other, Point):
+            return Point(self.x + other.x, self.y + other.y)
+        else:
+            x, y = other
+            return Point(self.x + x, self.y + y)
 
 class Circle:
     """
@@ -49,6 +65,10 @@ c.radius = 100
 p = Point()
 p.x = 226
 p.y = 100
+
+p1 = Point()
+p1.x = 226
+p1.y = 100
 
 
 rect = Rect()
@@ -107,6 +127,13 @@ class Time:
     """
     attributes: hour, minute, second
     """
+    def time_to_int(self):
+        minute = time.hour * 60 + time.minute
+        second = minute * 60 + time.second
+        return second
+    
+    def __str__(self) -> str:
+        return '%.2d:%.2d:%.2d' % (self.hour, self.minute, self.second)
 
 t1 = Time()
 t1.hour = 1
@@ -180,9 +207,46 @@ def mul_time(time, number):
     return int_to_time(time_to_int(time) * number)
 
 
-def birthday():
-    d = datetime.date(2021, 1, 2)
-    print(d)
+def birthday(bday):
+    now = datetime.now()
+    # print('Your age is', math.floor((now - bday).days / 365))
+    cur_bday = datetime(now.year, bday.month, bday.day)
+    print(cur_bday)
+    if cur_bday < now:
+        cur_bday = datetime(now.year+1, bday.month, bday.day)
+    print(cur_bday - now)
 
 
-birthday()
+def double_day(first, second):
+    if first < second:
+        temp = first
+        first = second
+        second = temp
+    
+    dif = first - second
+    dday = first + dif
+    print(dday)
+
+
+first = datetime(2010, 1, 1)
+second = datetime(2012, 2, 1)
+
+def print_attributes(obj):
+    for attr in vars(obj):
+        print(attr, getattr(obj, attr))
+
+
+class Kangaroo:
+    def __init__(self) -> None:
+        self.pouch_contents = []
+    
+    def put_in_pouch(self, obj):
+        self.pouch_contents.append(obj)
+
+    def __str__(self):
+        return str(self.pouch_contents)
+
+kanga = Kangaroo()
+roo = Kangaroo()
+kanga.put_in_pouch(roo)
+print(kanga)
