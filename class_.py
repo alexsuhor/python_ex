@@ -3,6 +3,7 @@ from copy import copy
 import turtle
 from pprint import pprint
 from datetime import date, time, datetime
+import random
 
 def distance_between_points(a, b):
     print(a.x, a.y, "/", b.x, b.y)
@@ -249,4 +250,51 @@ class Kangaroo:
 kanga = Kangaroo()
 roo = Kangaroo()
 kanga.put_in_pouch(roo)
-print(kanga)
+
+
+class Card:
+    suit_names = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
+    rank_names = [None, 'Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+    
+    def __init__(self, suit=0, rank=2) -> None:
+        self.rank = rank
+        self.suit = suit
+    
+    def __str__(self) -> str:
+        return '%s of %s' % (self.rank_names[self.rank], self.suit_names[self.suit])
+
+    def __lt__(self, other):
+        t1 = self.suit, self.rank
+        t2 = other.suit, other.rank
+        return t1 < t2
+
+class Deck:
+    def __init__(self):
+        self.cards = []
+        for suit in range(4):
+            for rank in range(1, 14):
+                self.cards.append(Card(suit, rank))
+    def __str__(self):
+        res = []
+        for card in self.cards:
+            res.append(str(card))
+        return '\n'.join(res)
+
+    def pop_card(self):
+        return self.cards.pop()
+    
+    def add_card(self, card):
+        self.cards.append(card)
+    
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def sort(self):
+        self.cards.sort()
+
+
+card = Card(3, 11)
+deck = Deck()
+deck.shuffle()
+deck.sort()
+print(deck)
